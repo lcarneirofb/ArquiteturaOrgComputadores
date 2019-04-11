@@ -1,0 +1,31 @@
+.data 
+vetor:	.space	40
+
+.text
+
+la $s0,vetor
+addi $s7,$s7,10
+addi $s3,$zero,0
+
+Loop: beq $s7,$zero,Fim
+jal entrada_valores
+la $t5,0($v0)
+sll $t1,$s3,2
+add $t1,$t1,$s0
+sw $t5,0($t1)
+addi $s3,$s3,1
+sub $s7,$s7,1
+j Loop
+
+
+
+
+
+
+
+entrada_valores:
+	li $v0, 5	# código para ler um inteiro
+	syscall		# executa a chamada do SO para ler
+	jr $ra		# volta para o lugar de onde foi chamado (no caso, jal le_inteiro_do_teclado)
+
+Fim:
